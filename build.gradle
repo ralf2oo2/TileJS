@@ -111,7 +111,17 @@ dependencies {
     implementation "org.slf4j:slf4j-api:1.8.0-beta4"
     implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.17.2"
     implementation "me.carleslc:Simple-Yaml:1.8.4"
-    implementation("dev.latvian.mods:rhino:${project.rhino_version}") { transitive(false) }
+    modApi("dev.latvian.mods:rhino:${project.rhino_version}") {
+        transitive = false
+    }
+
+//    modImplementation("dev.latvian.apps:tiny-java-server:${project.tiny_server_version}")
+    include("dev.latvian.apps:tiny-java-server") {
+        version {
+            strictly "[${project.tiny_server_version},)"
+            prefer "${project.tiny_server_version}"
+        }
+    }
 
     modImplementation("net.modificationstation:StationAPI:${project.stapi_version}") {
         exclude group: "babric", module: "fabric-loader"
