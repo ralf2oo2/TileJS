@@ -64,11 +64,20 @@ repositories {
         url = "https://jitpack.io"
     }
 
-    maven {
-        url "https://maven.latvian.dev/releases"
-        content {
-            includeGroup "dev.latvian.mods"
-            includeGroup "dev.latvian.apps"
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Latvian Dev Maven"
+                url = "https://maven.latvian.dev/releases"
+                metadataSources {
+                    artifact()
+                }
+            }
+        }
+        
+        filter {
+            includeGroup("dev.latvian.mods")
+            includeGroup("dev.latvian.apps")
         }
     }
 
@@ -111,18 +120,10 @@ dependencies {
     implementation "org.slf4j:slf4j-api:1.8.0-beta4"
     implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.17.2"
     implementation "me.carleslc:Simple-Yaml:1.8.4"
-    modApi("dev.latvian.mods:rhino:${project.rhino_version}") {
-        transitive = false
-    }
-
-//    modImplementation("dev.latvian.apps:tiny-java-server:${project.tiny_server_version}")
-    include("dev.latvian.apps:tiny-java-server") {
-        version {
-            strictly "[${project.tiny_server_version},)"
-            prefer "${project.tiny_server_version}"
-        }
-    }
-
+    
+    transitiveImplementation(implementation("dev.latvian.mods:rhino:${project.rhino_version}") as Dependency)
+    transitiveImplementation(implementation("dev.latvian.apps:tiny-java-server:${project.tiny_server_version}") as Dependency)
+    
     modImplementation("net.modificationstation:StationAPI:${project.stapi_version}") {
         exclude group: "babric", module: "fabric-loader"
     }
