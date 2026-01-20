@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "tilejs",
+  "version": "${version}",
+
+  "name": "TileJS",
+  "description": "",
+  "authors": [
+    "Ralf2oo2", "DanyGames2014"
+  ],
+
+  "license": "LGPLv3",
+  "icon": "assets/template/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "stationapi:event_bus": [
+    ],
+    "stationapi:event_bus_client": [
+    ],
+    "stationapi:event_bus_server": [
+    ]
+  },
+  "mixins": [
+    "template.mixins.json"
+  ],
+
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3"
+  }
+}
